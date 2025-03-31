@@ -1,5 +1,3 @@
-/* This is a stub for the Library class */
-
 import java.util.Hashtable;
 
 public class Library extends Building implements LibraryRequirements{
@@ -7,7 +5,12 @@ public class Library extends Building implements LibraryRequirements{
   //attributes
   private Hashtable<String, Boolean> collection;
 
-  //constructor
+  /**
+   * Library constructor utilizing constructor from building class and initializing empty hashtable of library's collection
+   * @param name String name of the library, for building construction
+   * @param address String address of the library, for building construction
+   * @param nFloors Integer amount of floors in the library, for building construction
+   */
   public Library(String name, String address, int nFloors) {
     super(name, address, nFloors);
     this.collection = new Hashtable<String, Boolean>();
@@ -15,24 +18,46 @@ public class Library extends Building implements LibraryRequirements{
   }
 
   //methods
+
+  /**
+   * Adds a title to hashtable of library's collection, automatically setting value to true to indicate it is available for checkout
+   * @param title String containing title of book being added
+   */
   public void addTitle(String title){
     this.collection.put(title, true);
   }
 
+  /**
+   * Removes a title from hashtable of library's collection, returning the title removed
+   * @param title String containing title of book being removed
+   */
   public String removeTitle(String title){
     this.collection.remove(title);
     return title;
   }
 
+  /**
+   * changes the value connected to the title of the book being checked out to false
+   * @param title String containing title of book being checked out
+   */
   public void checkOut(String title){
     this.collection.replace(title, false);
   }
 
+  /**
+   * changes the value connected to the title of the book being returned to true
+   * @param title String containing title of book being returned
+   */
   public void returnBook(String title){
     this.collection.replace(title,true);
   }
 
-  public boolean containsTitle(String title){ // returns true if the title appears as a key in the Libary's collection, false otherwise
+  /**
+   * Checks if hashtable of library's collection contains a requested title
+   * @param title String containing title being checked
+   * @return boolean weather the requested title is in the collection or not
+   */
+  public boolean containsTitle(String title){
     if (this.collection.containsKey(title)){
       return true;
     } else{
@@ -40,7 +65,12 @@ public class Library extends Building implements LibraryRequirements{
     }
   } 
   
-  public boolean isAvailable(String title){ // returns true if the title is currently available, false otherwise
+  /**
+   * Checks if a requested title is available based on its connected value in the hashtable
+   * @param title String containing title being checked
+   * @return boolean weather the requested title is availabe to be checked out or not
+   */
+  public boolean isAvailable(String title){
     if (this.collection.get(title)){
       return true;
     } else{
@@ -48,7 +78,10 @@ public class Library extends Building implements LibraryRequirements{
     }
   } 
   
-  public void printCollection(){// prints out the entire collection in an easy-to-read way (including checkout status)
+  /**
+   * Prints "Collection: " then the library's collection by going through each entry in the hashtable and printing a formated version of its title and weather it is available for checkout
+   */
+  public void printCollection(){
     System.out.println("Collection:");
     this.collection.forEach(
       (k,v)-> System.out.println("Title: " + k + "; Available for checkout: " + v));
@@ -66,4 +99,4 @@ public class Library extends Building implements LibraryRequirements{
     library.printCollection();
   }
   
-  }
+}
